@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlocalizedName: items.boardClub
   prefab: {fileID: 111500, guid: 8d2b5030e2f17c04ca1db60210a747f7, type: 3}
-  inventoryPositionOffset: {x: 0, y: 0, z: 0}
-  inventoryRotation: {x: -81.15, y: -20.76, z: 0.2}
-  inventoryScale: 0.5
   idleAnimationId: 0
+  inventoryPositionOffset: {x: 0.18, y: -0.2, z: 0}
+  inventoryRotation: {x: -138.4, y: -233, z: -153}
+  inventoryScale: 0.42
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
+  inHandScale: 1
   damage: 20
   range: 5
   attackRate: 0.5

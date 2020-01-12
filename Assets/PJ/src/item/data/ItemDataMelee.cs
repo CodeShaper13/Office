@@ -3,6 +3,8 @@
 [CreateAssetMenu(fileName = "ItemMelee", menuName = "ZPanic/Items/ItemMelee", order = 1)]
 public class ItemDataMelee : ItemData {
 
+    [Space]
+
     [Min(0)]
     [Tooltip("How much damage the item deals.")]
     public int damage = 0;

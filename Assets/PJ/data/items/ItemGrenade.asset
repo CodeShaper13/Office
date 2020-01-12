@@ -15,15 +15,15 @@ MonoBehaviour:
   unlocalizedName: items.grenade
   prefab: {fileID: 186104, guid: 2e939735c3106744498641b91530a8ee, type: 3}
   idleAnimationId: 0
-  inventoryPositionOffset: {x: 0, y: 0, z: 0}
-  inventoryRotation: {x: 22.5, y: 45, z: 0}
-  inventoryScale: 1
+  inventoryPosition: {x: 0, y: 0}
+  inventoryRotation: {x: 0, y: 45, z: 0}
+  inventoryScale: 1.7
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
   inHandScale: 1
-  explosionDamage: 100
-  explosionRadius: 5
   throwForce: 15
-  explodeTime: 3
   rigidbodyForce: 150
   forceMode: 0
+  explosionDamage: 100
+  explosionRadius: 5
+  explodeTime: 3

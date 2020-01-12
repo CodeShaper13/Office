@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
-[RequireComponent(typeof(Rigidbody))]
-public class ItemGrenade : ItemBase<ItemDataGrenade> {
+public class ItemGrenade : ItemThrowable<ItemDataGrenade> {
 
     [SerializeField]
     private GameObject explosionEffectPrefab = null;
@@ -26,7 +24,9 @@ public class ItemGrenade : ItemBase<ItemDataGrenade> {
     public override void onLeftClick(Player player) {
         base.onLeftClick(player);
 
-        this.throwGrenade(player);
+        this.throwItem(player);
+
+        //TODO play sound effect.
     }
 
     public override void onRightClick(Player player) {
@@ -41,24 +41,13 @@ public class ItemGrenade : ItemBase<ItemDataGrenade> {
         return this.primed ? "Primed!" : base.getExtraText(player);
     }
 
+    public override bool canPickUpItem(Player player) {
+        return !this.primed;
+    }
+
     private void primeGrenade(Player player) {
         this.primed = true;
         this.timer = this.data.explodeTime;
-
-        // TODO play sound effect.
-    }
-
-    private void throwGrenade(Player player) {
-        player.inventory.setItem(player.hotbarIndex.get(), null);
-        Transform camTrans = player.getCamera().transform;
-        this.setInWorld(true, camTrans.position + (camTrans.forward * 0.5f), camTrans.rotation);
-
-        Rigidbody rb = this.GetComponent<Rigidbody>();
-        rb.isKinematic = false;
-        rb.AddForce(camTrans.forward * data.throwForce, ForceMode.Impulse);  // TODO make more realistic?
-
-        BoxCollider col = this.GetComponent<BoxCollider>();
-        col.enabled = true;
 
         // TODO play sound effect.
     }

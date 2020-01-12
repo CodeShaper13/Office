@@ -9,6 +9,8 @@ public abstract class ItemBase<T> : MonoBehaviour, IItem where T : ItemData {
 
     private void Awake() {
         this.worldScale = this.transform.localScale;
+
+        this.initializeItem();
     }
 
     private void Update() {
@@ -49,6 +51,13 @@ public abstract class ItemBase<T> : MonoBehaviour, IItem where T : ItemData {
         this.data = (T)data;
     }
 
+    /// <summary> Called when the Item's Gameobject is first instantiated. </summary>
+    public virtual void initializeItem() { }
+
+    public virtual string getItemName() {
+        return this.data.getUnlocalizedName();
+    }
+
     public virtual void hideItem() {
         this.GetComponent<MeshRenderer>().enabled = false;
     }
@@ -75,5 +84,9 @@ public abstract class ItemBase<T> : MonoBehaviour, IItem where T : ItemData {
 
     public virtual string getExtraText(Player player) {
         return string.Empty;
+    }
+
+    public virtual bool canPickUpItem(Player player) {
+        return true;
     }
 }

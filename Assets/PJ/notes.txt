@@ -1,2 +1,2 @@
-attackign with a non weapon only stuns you.
+attackign with a non weapon only stuns enemies.
 cut through iron bars with saw

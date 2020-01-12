@@ -14,13 +14,13 @@ public class ItemData : ScriptableObject {
     [Space]
     [SerializeField]
     [Tooltip("")]
-    private EnumWeaponAnimationType idleAnimationId;
+    private EnumWeaponAnimationType idleAnimationId = EnumWeaponAnimationType.NO_WEAPON;
 
-    [SerializeField]
     [Header("Inventory")]
-    private Vector3 inventoryPositionOffset = Vector3.zero;
     [SerializeField]
-    private Vector3 inventoryRotation = new Vector3(22.5f, 45, 0f);
+    private Vector2 inventoryPosition = Vector2.zero;
+    [SerializeField]
+    private Vector3 inventoryRotation = new Vector3(0f, 0f, 0f);
     [SerializeField]
     private float inventoryScale = 1f;
 
@@ -47,7 +47,7 @@ public class ItemData : ScriptableObject {
     }
 
     public MutableTransform getContainerMT() {
-        return new MutableTransform(this.inventoryPositionOffset, Quaternion.Euler(this.inventoryRotation), new Vector3(this.inventoryScale, this.inventoryScale, this.inventoryScale));
+        return new MutableTransform(this.inventoryPosition, Quaternion.Euler(this.inventoryRotation), Vector3.one * this.inventoryScale);
     }
     
     public Mesh getMesh() {

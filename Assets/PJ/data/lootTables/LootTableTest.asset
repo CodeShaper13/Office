@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: LootTableTest
   m_EditorClassIdentifier: 
   entires:
-  - item: {fileID: 0}
-    weight: 0
+  - item: {fileID: 11400000, guid: b1653b9f243c3e949ac21c0a3a3f58ab, type: 2}
+    weight: 2
     disabled: 0
-  - item: {fileID: 0}
-    weight: 0
+  - item: {fileID: 11400000, guid: 2a534f64cddc39b47a6cf01575314927, type: 2}
+    weight: 1
     disabled: 0

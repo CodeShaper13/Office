@@ -15,7 +15,7 @@ public static class ItemManager {
     public static T create<T>(ItemData item, Vector3 position, Quaternion rotation) where T : IItemBase {
         GameObject prefab = item.getPrefab();
         if(prefab == null) {
-            Debug.LogWarning("Tried to instantiate an Item that doesn't have a prefab set!");
+            Debug.LogWarning("Tried to instantiate an Item that doesn't have a prefab set!  Item name = " + item.getUnlocalizedName());
         }
         GameObject obj = GameObject.Instantiate(prefab);
         T iItem = obj.GetComponent<T>();

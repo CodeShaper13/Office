@@ -11,6 +11,11 @@ public class ContainerItems : ScriptableObject {
             if(container.isFull()) {
                 break;
             }
+
+            if(itemData == null) {
+                continue;
+            }
+
             T item = ItemManager.create<T>(itemData);
             item.setInWorld(false, Vector3.zero, Quaternion.identity); // TODO where should they be stored?
             container.addItem(item);

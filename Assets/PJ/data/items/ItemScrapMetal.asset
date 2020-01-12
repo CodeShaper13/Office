@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlocalizedName: items.scrapMetal
   prefab: {fileID: 153268, guid: 9f9aec8bb90be4e4eb8f51f7731f3555, type: 3}
-  inventoryPositionOffset: {x: 0, y: 0, z: 0}
-  inventoryRotation: {x: 0.2, y: 0.2, z: 0.2}
-  inventoryScale: 1
   idleAnimationId: 0
+  inventoryPositionOffset: {x: 0, y: 0, z: 0}
+  inventoryRotation: {x: -38.21, y: 0, z: 0}
+  inventoryScale: 0.33
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
+  inHandScale: 1

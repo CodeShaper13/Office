@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -8,19 +9,22 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour, IPointerClickHandler {
 
     /// <summary> The slot index within the container that this coresponds to. </summary>
-    [SerializeField]
     private int index;
-
     /// <summary> Reference to the container that this slot belongs to. </summary>
-    public Container container;
+    private Container container;
     private Text slotText;
 
     private void Awake() {
         this.slotText = this.GetComponentInChildren<Text>();
     }
 
+    public void setFields(int index, Container owner) {
+        this.index = index;
+        this.container = owner;
+    }
+
     /// <summary>
-    /// Called by Unity because we implement IPointerClickHandler when we click on the game object.
+    /// Called by Unity because we implement IPointerClickHandler when the game object is clicked.
     /// </summary>
     public void OnPointerClick(PointerEventData eventData) {
         if(this.isInteractable()) {

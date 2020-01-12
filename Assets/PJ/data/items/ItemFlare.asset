@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31bc884a4829c114e9e4bdd00b2098b4, type: 3}
+  m_Name: ItemFlare
+  m_EditorClassIdentifier: 
+  unlocalizedName: items.flare
+  prefab: {fileID: 165402, guid: e76dec9857584cc4f8ec9b1867ca3461, type: 3}
+  idleAnimationId: 0
+  inventoryPosition: {x: -0.01, y: -0.03}
+  inventoryRotation: {x: -45, y: -63.37, z: -32.77}
+  inventoryScale: 0.7
+  inHandPosition: {x: 0, y: 0, z: 0}
+  inHandRotation: {x: 0, y: 0, z: 0}
+  inHandScale: 1
+  throwForce: 15
+  rigidbodyForce: 150
+  forceMode: 0
+  litTime: 7
+  zombieAttractRange: 25

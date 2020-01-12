@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bc6d21da5e244548b74f5ada94e37b8, type: 3}
+  m_Name: ItemMousetrap
+  m_EditorClassIdentifier: 
+  unlocalizedName: items.mousetrap
+  prefab: {fileID: 158098, guid: 1ee6f9814ffae2948abf1579954f5e71, type: 3}
+  idleAnimationId: 0
+  inventoryPosition: {x: -0.01, y: 0}
+  inventoryRotation: {x: -29.55, y: -32.22, z: 0}
+  inventoryScale: 0.9
+  inHandPosition: {x: 0, y: 0, z: 0}
+  inHandRotation: {x: 0, y: 0, z: 0}
+  inHandScale: 1

@@ -15,9 +15,9 @@ MonoBehaviour:
   unlocalizedName: items.pistol
   prefab: {fileID: 162522, guid: 6a97c5e28ad9dab439460ddb0b1fb191, type: 3}
   idleAnimationId: 1
-  inventoryPositionOffset: {x: -0.3, y: 0, z: 0}
+  inventoryPositionOffset: {x: -0.2, y: 0, z: 0}
   inventoryRotation: {x: 18.47, y: 125.16, z: 0.2}
-  inventoryScale: 0.18
+  inventoryScale: 0.55
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
   inHandScale: 1

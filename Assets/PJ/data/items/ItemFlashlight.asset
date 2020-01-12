@@ -15,9 +15,9 @@ MonoBehaviour:
   unlocalizedName: items.flashlight
   prefab: {fileID: 112586, guid: 835091381215a3546bb45bf28cd80a35, type: 3}
   idleAnimationId: 1
-  inventoryPositionOffset: {x: 0, y: -0.1, z: 0}
-  inventoryRotation: {x: 10.9, y: 135.26, z: 0}
-  inventoryScale: 1.46
+  inventoryPositionOffset: {x: -0.04, y: -0.06, z: 0}
+  inventoryRotation: {x: 34.15, y: 135.26, z: 0}
+  inventoryScale: 0.7
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
   inHandScale: 1

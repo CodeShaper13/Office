@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlocalizedName: items.shotgunAmmo
   prefab: {fileID: 128406, guid: 3f79b0dd3edea354ea7f2732e57b9813, type: 3}
-  inventoryPositionOffset: {x: 0.11, y: -0.3, z: 0}
-  inventoryRotation: {x: 0, y: 45, z: -22.5}
-  inventoryScale: 1.37
   idleAnimationId: 0
+  inventoryPosition: {x: 0.02, y: -0.11}
+  inventoryRotation: {x: 0, y: 45, z: -22.39}
+  inventoryScale: 0.52
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
+  inHandScale: 1

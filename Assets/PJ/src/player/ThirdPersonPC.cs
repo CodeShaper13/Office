@@ -22,7 +22,7 @@ public class ThirdPersonPC {
         if(this.player.isOnGround()) {
             if(Input.GetKeyDown(KeyCode.Space)) {
                 this.verticalVelocity = this.jumpPower;
-                this.player.anim.SetBool("Jump_b", true);
+//                this.player.anim.SetBool("Jump_b", true);
             }
         }
 

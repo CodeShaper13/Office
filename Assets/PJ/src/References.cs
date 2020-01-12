@@ -4,9 +4,6 @@ public class References : MonoBehaviour {
 
     public static References list;
 
-    [Header("The Camera that draws items.")]
-    public Camera hudCamera;
-
     [Header("Materials")]
     public Material itemMaterialLit_0;
     public Material itemMaterialLit_1;

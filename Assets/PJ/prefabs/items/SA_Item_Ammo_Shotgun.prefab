@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3341584}
   - component: {fileID: 2302520}
   - component: {fileID: 8990980952219014198}
-  m_Layer: 0
+  - component: {fileID: 4128695151776435788}
+  m_Layer: 10
   m_Name: SA_Item_Ammo_Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,3 +92,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc150e92d22f2e640b9ce266226a74c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &4128695151776435788
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128406}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7600517, y: 0.31818342, z: 0.6969013}
+  m_Center: {x: -0.0000019073486, y: 0.15909171, z: 0}

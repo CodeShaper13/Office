@@ -5,53 +5,45 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Health))]
 public class Player : MonoBehaviour, IPlayer {
 
-    public static Player singleton;
-
     private const float PICKUP_RANGE = 1.5f;
 
-    [SerializeField]
-    private float jumpPower = 20f;
 
     [SerializeField]
     private GameObject playerUIPrefab;
 
     private CharacterController cc;
-    [HideInInspector]
-    public Animator anim;
-    private Camera cam;
+    private Animator anim;
+    private FpsController fpsc;
+    private HeldItemDisplayer heldItemDisplayer;
+    /// <summary> The time in seconds since the player moved. </summary>
+    private float timeSinceMove;
+
     [HideInInspector]
     public PlayerUI playerUI;
-    [SerializeField]
-    private ContainerHelper containerHelper;
     [SerializeField]
     private Transform rightHandTransform;
     [SerializeField]
     private Transform leftHandTransform;
+    [SerializeField]
+    private Camera firstPersonCamera;
 
-    /// <summary> The time in seconds since the player moved. </summary>
-    private float timeSinceMove;
-    /// <summary> The players health, 0-100. </summary>
     public Health health;
     public ScrollableInt hotbarIndex;
-    public ContainerContents<IItem> inventory;
-    private HeldItemDisplayer heldItemDisplayer;
-    private FpsController fpsc;
+    public ContainerContents<IItemBase> inventory;
+
 
     // Temp
     public ContainerItems startingInventory;
 
 
     private void Awake() {
-        Player.singleton = this;
-
         this.playerUI = GameObject.Instantiate(this.playerUIPrefab).GetComponent<PlayerUI>();
         this.playerUI.setPlayer(this);
 
         this.cc = this.GetComponent<CharacterController>();
         this.anim = this.GetComponent<Animator>();
-        this.cam = Camera.main;
         this.hotbarIndex = new ScrollableInt(0, 3);
-        this.inventory = new ContainerContents<IItem>(4, 3);
+        this.inventory = new ContainerContents<IItemBase>(4, 3);
         this.heldItemDisplayer = new HeldItemDisplayer(this, this.rightHandTransform, this.leftHandTransform);
 
         this.fpsc = this.GetComponent<FpsController>();
@@ -73,119 +65,7 @@ public class Player : MonoBehaviour, IPlayer {
             return;
         }
 
-        // Update the UI
-        this.playerUI.updateHealthCircle(this.health.getHealth());
-
-        Vector3 motion = new Vector3();
-
         if(!this.health.isDead()) {
-            this.anim.SetBool("Jump_b", false);
-
-            // Update the held item.
-            if(this.getHeldItem() != null) {
-                this.getHeldItem().updateItemInHand(this);
-            }
-
-            EnumInputBlock inputBlockMask = this.getHeldItem() == null ? EnumInputBlock.NONE : this.getHeldItem().getInputBlock(this);
-            bool blockMove = (inputBlockMask & EnumInputBlock.MOVE) == EnumInputBlock.MOVE;
-            bool blockHeldChange = (inputBlockMask & EnumInputBlock.CHANGE_HELD) == EnumInputBlock.CHANGE_HELD;
-            bool blockLook = (inputBlockMask & EnumInputBlock.LOOK) == EnumInputBlock.LOOK;
-
-            // Move Player.
-            this.fpsc.updateController(blockMove, blockLook);
-
-            if(!blockHeldChange) {
-                // Scroll through the hotbar.
-                this.hotbarIndex.scroll(((int)Input.mouseScrollDelta.y) * -1);
-
-                // Drop held item if Q is pressed.
-                if(Input.GetKeyDown(KeyCode.Q)) {
-                    if(this.getHeldItem() != null) {
-                        const float FORWARD_CHECK_DIST = 2f;
-                        const float DOWN_CHECK_DIST = 4f;
-
-                        Vector3 playerHandHeight = this.transform.position + Vector3.up * 2f;
-                        if(!Physics.Raycast(playerHandHeight, this.transform.forward, FORWARD_CHECK_DIST)) {
-                            // Nothing directly in front of the player.
-                            RaycastHit hit;
-                            if(Physics.Raycast(playerHandHeight + this.transform.forward * FORWARD_CHECK_DIST, Vector3.down, out hit, DOWN_CHECK_DIST)) {
-                                // A floor is under them.
-                                this.dropItem(this.getHeldItem(), hit.point);
-                            }
-                        }
-                    }
-                }
-
-                // Try to pick up an item if E is pressed.
-                if(Input.GetKeyDown(KeyCode.E)) {
-                    if(!this.inventory.isFull()) {
-                        List<IItem> items = GameObject.FindObjectsOfType<MonoBehaviour>().OfType<IItem>().ToList<IItem>();
-
-                        if(items.Count != 0) {
-                            IItem closetItem = items.OrderBy(x => Vector2.Distance(this.transform.position, x.getTransform().position)).First<IItem>();
-                            if(Vector3.Distance(this.transform.position, closetItem.getTransform().position) < Player.PICKUP_RANGE) {
-                                // Pickup item.
-                                this.pickupItem(closetItem);
-                            }
-                        }
-                    }
-                }
-
-                if(this.getHeldItem() != null) {
-                    // Let the held item respond to buttons being pressed. 
-                    if(Input.GetKeyDown(KeyCode.R)) {
-                        this.getHeldItem().onReloadPress(this);
-                    }
-                    if(Input.GetMouseButtonDown(0)) {
-                        this.getHeldItem().onLeftClick(this);
-                    }
-                    if(Input.GetMouseButtonDown(1)) {
-                        this.getHeldItem().onRightClick(this);
-                    }
-                }
-            }
-
-            /*
-            // Move the player.
-            if(Input.GetKey(KeyCode.W)) {
-                motion.z = 1;
-            }
-            if(Input.GetKey(KeyCode.S)) {
-                motion.z = -1;
-            }
-            if(Input.GetKey(KeyCode.A)) {
-                motion.x = -1f;
-            }
-            if(Input.GetKey(KeyCode.D)) {
-                motion.x = 1;
-            }
-            */
-
-            /*
-            //Get the Screen positions of the object
-            Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position + Vector3.up * 1.5f);
-            //Get the Screen position of the mouse
-            Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
-            //Get the angle between the points
-            float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
-            //Ta Daaa
-            // this.transform.rotation = Quaternion.Euler(new Vector3(0f, -angle - 90, 0));
-
-            this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.Euler(new Vector3(0f, -angle - 90, 0)), 720 * Time.deltaTime);
-            */
-
-            /*
-            // Rotate the player in the direction they're walking.
-            if(motion != Vector3.zero) {
-                this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, Quaternion.LookRotation(motion), 720 * Time.deltaTime);
-            }
-            */
-
-
-            /*
-            // Move the player.  Doesn't the aniamtion clip do this, so now they go extra fast...?
-            cc.Move(motion.setY(this.verticalVelocity) * Time.deltaTime);
-            */
 
             // Update the held item model in the Players hand.
             this.heldItemDisplayer.updateHeldItem(this.getHeldItem());
@@ -200,36 +80,104 @@ public class Player : MonoBehaviour, IPlayer {
             }
             this.anim.SetInteger("WeaponType_int", itemInHand == null ? 0 : (int)itemInHand.getData().getIdleAnimation());
 
-            /*
-            // Update velocity/falling
-            this.verticalVelocity += Physics.gravity.y * Time.deltaTime;
-            */
 
-            // Update the timeSinceMove field.
-            if(motion == Vector3.zero) {
-                this.timeSinceMove += Time.deltaTime;
-            } else {
-                this.timeSinceMove = 0f;
-            }
-
-            // Set the walking animation.
-        //    this.anim.SetFloat("Speed_f", motion.setY(0) == Vector3.zero ? 0 : 1f);
-
-
-            /*
-            // Pick an idle animation if the player hasn't moved in a while.
-            if((int)this.timeSinceMove % 10 == 0) {
-                // Start of a 10 second period
-                if(this.timeSinceMove > 5f) {
-                    // Pick a random animation every 10 seconds,
-                    // after the initial 10 seconds of basic idle.
-                    this.anim.SetInteger("Animation_int", Random.Range(1, 3));
+            if(this.playerUI.isInventoryOpen()) {
+                if(Input.GetKeyDown(KeyCode.Escape)) {
+                    this.playerUI.closeInventory();
                 }
+            } else {
+                if(Input.GetKeyDown(KeyCode.Tab)) {
+                    this.playerUI.openInventory();
+                    return; // Dont procees player input.
+                }
+
+                this.anim.SetBool("Jump_b", false);
+
+                // Update the held item.
+                if(this.getHeldItem() != null) {
+                    this.getHeldItem().updateItemInHand(this);
+                }
+
+                EnumInputBlock inputBlockMask = this.getHeldItem() == null ? EnumInputBlock.NONE : this.getHeldItem().getInputBlock(this);
+                bool blockMove = (inputBlockMask & EnumInputBlock.MOVE) == EnumInputBlock.MOVE;
+                bool blockHeldChange = (inputBlockMask & EnumInputBlock.CHANGE_HELD) == EnumInputBlock.CHANGE_HELD;
+                bool blockLook = (inputBlockMask & EnumInputBlock.LOOK) == EnumInputBlock.LOOK;
+
+                // Move Player.
+                this.fpsc.updateController(blockMove, blockLook);
+
+                if(!blockHeldChange) {
+                    // Scroll through the hotbar.
+                    this.hotbarIndex.scroll(((int)Input.mouseScrollDelta.y) * -1);
+
+                    // Drop held item if Q is pressed.
+                    if(Input.GetKeyDown(KeyCode.Q)) {
+                        if(this.getHeldItem() != null) {
+                            const float FORWARD_CHECK_DIST = 2f;
+                            const float DOWN_CHECK_DIST = 4f;
+
+                            Vector3 playerHandHeight = this.transform.position + Vector3.up * 2f;
+                            if(!Physics.Raycast(playerHandHeight, this.transform.forward, FORWARD_CHECK_DIST)) {
+                                // Nothing directly in front of the player.
+                                RaycastHit hit;
+                                if(Physics.Raycast(playerHandHeight + this.transform.forward * FORWARD_CHECK_DIST, Vector3.down, out hit, DOWN_CHECK_DIST)) {
+                                    // A floor is under them.
+                                    this.dropItem(this.getHeldItem(), hit.point);
+                                }
+                            }
+                        }
+                    }
+
+                    // Try to pick up an item if E is pressed.
+                    if(Input.GetKeyDown(KeyCode.E)) {
+                        if(!this.inventory.isFull()) {
+                            const float pickupRange = 5f;
+                            RaycastHit hit;
+                            if(Physics.Raycast(getCameraRay(), out hit, pickupRange, (Layers.ITEMS_MASK | Layers.DEFAULT_MASK))) {
+                                print(hit.transform.name);
+                                IItem item = hit.transform.GetComponent<IItem>();
+                                if(item != null) { // Safety check.
+                                    this.pickupItem(item);
+                                }
+                            }
+
+                            /*
+                            List<IItem> items = GameObject.FindObjectsOfType<MonoBehaviour>().OfType<IItem>().ToList<IItem>();
+
+                            if(items.Count != 0) {
+                                IItem closetItem = items.OrderBy(x => Vector2.Distance(this.transform.position, x.getTransform().position)).First<IItem>();
+                                if(closetItem.canPickUpItem(this) && Vector3.Distance(this.transform.position, closetItem.getTransform().position) < Player.PICKUP_RANGE) {
+                                    // Pickup item.
+                                    this.pickupItem(closetItem);
+                                }
+                            }
+                            */
+                        }
+                    }
+
+                    if(this.getHeldItem() != null) {
+                        // Let the held item respond to buttons being pressed. 
+                        if(Input.GetKeyDown(KeyCode.R)) {
+                            this.getHeldItem().onReloadPress(this);
+                        }
+                        if(Input.GetMouseButtonDown(0)) {
+                            this.getHeldItem().onLeftClick(this);
+                        }
+                        if(Input.GetMouseButtonDown(1)) {
+                            this.getHeldItem().onRightClick(this);
+                        }
+                    }
+                }
+
+                /*
+                // Update the timeSinceMove field.
+                if(motion == Vector3.zero) {
+                    this.timeSinceMove += Time.deltaTime;
+                } else {
+                    this.timeSinceMove = 0f;
+                }
+                */
             }
-            else {
-                this.anim.SetInteger("Animation_int", 0);
-            }
-            */
         }
     }
 
@@ -237,12 +185,12 @@ public class Player : MonoBehaviour, IPlayer {
         
     }
 
-    float AngleBetweenTwoPoints(Vector3 a, Vector3 b) {
-        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
-    }
-
     private void pickupItem(IItem item) {
-        // print("Picking up item " + item.getData().getUnlocalizedName());
+//        print("Picking up item " + item.getData().getUnlocalizedName());
+
+        // It's possible the layer got set to enable collison with this world,
+        // this happens to thrown items.  Reset it here.
+        item.getTransform().gameObject.layer = Layers.ITEM;
 
         item.setInWorld(false, Vector3.zero, Quaternion.identity); // TODO where should they be stored?
 
@@ -250,7 +198,7 @@ public class Player : MonoBehaviour, IPlayer {
     }
 
     private void dropItem(IItem item, Vector3 pos) {
-        // print("Dropping item " + item.getData().getUnlocalizedName());
+//        print("Dropping item " + item.getData().getUnlocalizedName());
 
         item.setInWorld(true, pos, Quaternion.identity);
 
@@ -262,7 +210,7 @@ public class Player : MonoBehaviour, IPlayer {
     /// Returns the held item.  May be null.
     /// </summary>
     public IItem getHeldItem() {
-        return this.inventory.getItem(this.hotbarIndex.get());
+        return (IItem)this.inventory.getItem(this.hotbarIndex.get());
     }
 
     /// <summary>
@@ -285,10 +233,6 @@ public class Player : MonoBehaviour, IPlayer {
     /// </summary>
     public bool raycast(out RaycastHit hit, float maxDistance) {
         return Physics.Raycast(this.getCameraRay(), out hit, maxDistance);
-    }
-
-    public ContainerHelper getContainerHelper() {
-        return this.containerHelper;
     }
 
     /// <summary>
@@ -316,7 +260,10 @@ public class Player : MonoBehaviour, IPlayer {
         return this.transform;
     }
 
+    /// <summary>
+    /// Returns the first person camera used by the player.
+    /// </summary>
     public Camera getCamera() {
-        return Camera.main; // TODO
+        return this.firstPersonCamera;
     }
 }

@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlocalizedName: items.circuts
   prefab: {fileID: 143142, guid: d3d96fccbd7d28c40be02d8814c971b0, type: 3}
-  inventoryPositionOffset: {x: 0, y: 0, z: 0}
-  inventoryRotation: {x: 0, y: 0, z: 0}
-  inventoryScale: 1.58
   idleAnimationId: 0
+  inventoryPositionOffset: {x: 0.08, y: -0.05, z: 0}
+  inventoryRotation: {x: -21.92, y: -27.88, z: 33.35}
+  inventoryScale: 0.52
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
+  inHandScale: 1

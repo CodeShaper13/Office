@@ -100,7 +100,7 @@ public class ContainerContents<T> where T : IItemBase {
         }
 
         for(int i = 0; i < this.items.Length; i++) {
-            if(this.items[i].getData() == item) {
+            if(this.items[i] != null && this.items[i].getData() == item) {
                 index = i;
                 return true;
             }

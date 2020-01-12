@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3348322}
   - component: {fileID: 2395308}
   - component: {fileID: 5889971273699661235}
-  m_Layer: 0
+  - component: {fileID: 6560875559270353863}
+  m_Layer: 10
   m_Name: SA_Wep_NailPlank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,3 +92,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcef48cafcbe7d043a52393ab92acd07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &6560875559270353863
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111500}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2429161, y: 0.25889093, z: 1.5394888}
+  m_Center: {x: 0, y: -0.020488195, z: 0.5204835}

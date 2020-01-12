@@ -34,7 +34,7 @@ public class LootTable : ScriptableObject {
     public struct LootTableEntry {
         
         public ItemData item;
-        [Min(0)]
+        [Min(1)]
         public int weight;
         [Tooltip("Disabled entries are ignored.")]
         [SerializeField]

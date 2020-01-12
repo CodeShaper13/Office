@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6086075915718057400}
-  - component: {fileID: 6086075915718057401}
+  - component: {fileID: 7378687636204408266}
   m_Layer: 0
   m_Name: ItemSpawnArea
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6086075915718057401
+--- !u!114 &7378687636204408266
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,15 +40,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6086075915718057402}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18a91c0adf816204c84e84539dcf9701, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c9c79c8f72f54c4281ba7f58e4c975c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   areaShape: 0
   offset: {x: 0, y: 0, z: 0}
   xSize: 1
-  zSize: 1.24
+  zSize: 1
   radius: 1
   length: 1
   areaEnabled: 1
   lootTable: {fileID: 0}
   generationChance: 100
+  generateOnStart: 1

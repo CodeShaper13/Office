@@ -9,6 +9,16 @@ public class Container : MonoBehaviour {
     /// <summary> The player who opened the container. </summary>
     private Player player;
 
+    private void Start() {
+        // Set the index field of all the slots.
+        for(int i = 0; i < this.slots.Length; i++) {
+            Slot s = this.slots[i];
+            if(s != null) {
+                s.setFields(i, this);
+            }
+        }
+    }
+
     /// <summary>
     /// Called when the container is opened by a Player.
     /// </summary>
@@ -47,9 +57,9 @@ public class Container : MonoBehaviour {
     /// <summary>
     /// Called by a slot game object when it is clicked on.
     /// </summary>
-    public void onSlotClick(int i, bool leftBtn, bool rightBtn, bool middleBtn) {
-        ContainerHelper cm = this.player.getContainerHelper();
-        IItemBase heldStack = cm.getHeldStack();
+    public virtual void onSlotClick(int i, bool leftBtn, bool rightBtn, bool middleBtn) {
+        ContainerHeldItem cm = this.player.playerUI.heldItem;
+        IItemBase heldStack = cm.getHeldItem();
         IItemBase slotContents = this.contents.getItem(i);
 
         if(leftBtn) {

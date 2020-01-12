@@ -3,6 +3,11 @@
 public interface IItem : IItemBase {
 
     /// <summary>
+    /// Returns the Item's unlocalized name.
+    /// </summary>
+    string getItemName();
+
+    /// <summary>
     /// Called every frame, even when the item is in a container.
     /// Use isInworld() to check if the item is in an inventory.
     /// </summary>
@@ -24,4 +29,6 @@ public interface IItem : IItemBase {
     void animatorUpdate(Player player, Animator anim);
 
     string getExtraText(Player player);
+
+    bool canPickUpItem(Player player);
 }
