@@ -24,4 +24,4 @@ MonoBehaviour:
   throwForce: 15
   rigidbodyForce: 150
   forceMode: 0
-  damage: 50
+  damage: 150

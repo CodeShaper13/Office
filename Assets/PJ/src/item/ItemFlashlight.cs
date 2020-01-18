@@ -47,8 +47,7 @@ public class ItemFlashlight : ItemBase<ItemDataFlashlight> {
 
         int index;
         if(player.inventory.containsItem(this.data.batteryItem, out index)) {
-            ItemManager.destroy(player.inventory.getItem(index));
-            player.inventory.setItem(index, null);
+            ItemManager.destroyItem(player, index);
 
             this.batteryLeft = 100;
         }

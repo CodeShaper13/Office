@@ -13,9 +13,15 @@ MonoBehaviour:
   m_Name: LootTableTest
   m_EditorClassIdentifier: 
   entires:
-  - item: {fileID: 11400000, guid: b1653b9f243c3e949ac21c0a3a3f58ab, type: 2}
+  - item: {fileID: 11400000, guid: 8a88cc80d494377458d5fdff6e777c10, type: 2}
     weight: 2
     disabled: 0
-  - item: {fileID: 11400000, guid: 2a534f64cddc39b47a6cf01575314927, type: 2}
-    weight: 1
+  - item: {fileID: 11400000, guid: 37ef57d0edbf33246a0f5d8dd3fe8075, type: 2}
+    weight: 2
+    disabled: 0
+  - item: {fileID: 11400000, guid: 065675f7ccc412b43bec09c1b8f0e31f, type: 2}
+    weight: 2
+    disabled: 0
+  - item: {fileID: 11400000, guid: f460b350c123127489af8c3587c89f77, type: 2}
+    weight: 6
     disabled: 0

@@ -15,11 +15,11 @@ MonoBehaviour:
   unlocalizedName: items.screwdriver
   prefab: {fileID: 135432, guid: ae105308901e0004ca74a902dd0bba58, type: 3}
   idleAnimationId: 0
-  inventoryPositionOffset: {x: -0.03, y: -0.06, z: 0}
+  inventoryPosition: {x: 0, y: 0}
   inventoryRotation: {x: 0, y: -21.47, z: -49.96}
   inventoryScale: 0.62
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
   inHandScale: 1
-  pickTime: 1
-  reach: 1
+  pickTime: 4
+  reach: 2

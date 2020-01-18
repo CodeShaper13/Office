@@ -1,20 +1,17 @@
-﻿using System.Linq;
-using UnityEngine;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-public class Player : MonoBehaviour, IPlayer {
+public class Player : Character, IPlayer {
 
     private const float PICKUP_RANGE = 1.5f;
-
 
     [SerializeField]
     private GameObject playerUIPrefab;
 
     private CharacterController cc;
     private Animator anim;
-    private FpsController fpsc;
-    private HeldItemDisplayer heldItemDisplayer;
+    private FpsControl fpsc;
+    public HeldItemDisplayer heldItemDisplayer;
     /// <summary> The time in seconds since the player moved. </summary>
     private float timeSinceMove;
 
@@ -27,7 +24,6 @@ public class Player : MonoBehaviour, IPlayer {
     [SerializeField]
     private Camera firstPersonCamera;
 
-    public Health health;
     public ScrollableInt hotbarIndex;
     public ContainerContents<IItemBase> inventory;
 
@@ -46,7 +42,7 @@ public class Player : MonoBehaviour, IPlayer {
         this.inventory = new ContainerContents<IItemBase>(4, 3);
         this.heldItemDisplayer = new HeldItemDisplayer(this, this.rightHandTransform, this.leftHandTransform);
 
-        this.fpsc = this.GetComponent<FpsController>();
+        this.fpsc = this.GetComponent<FpsControl>();
 
         // Temp
         this.startingInventory.fillContainer(this.inventory);
@@ -65,6 +61,11 @@ public class Player : MonoBehaviour, IPlayer {
             return;
         }
 
+        // Open the pause menu
+        if(Input.GetKeyDown(KeyCode.Escape) && !this.playerUI.isInventoryOpen() && !Pause.isPaused()) {
+            Main.singleton.uiManager.openUI(Main.singleton.uiManager.pauseUi);
+        }
+
         if(!this.health.isDead()) {
 
             // Update the held item model in the Players hand.
@@ -79,7 +80,6 @@ public class Player : MonoBehaviour, IPlayer {
                 itemInHand.animatorUpdate(this, this.anim);
             }
             this.anim.SetInteger("WeaponType_int", itemInHand == null ? 0 : (int)itemInHand.getData().getIdleAnimation());
-
 
             if(this.playerUI.isInventoryOpen()) {
                 if(Input.GetKeyDown(KeyCode.Escape)) {
@@ -133,25 +133,20 @@ public class Player : MonoBehaviour, IPlayer {
                         if(!this.inventory.isFull()) {
                             const float pickupRange = 5f;
                             RaycastHit hit;
-                            if(Physics.Raycast(getCameraRay(), out hit, pickupRange, (Layers.ITEMS_MASK | Layers.DEFAULT_MASK))) {
-                                print(hit.transform.name);
+                            if(Physics.Raycast(this.getCameraRay(), out hit, pickupRange, (Layers.ITEMS_MASK | Layers.DEFAULT_MASK))) {
+
+                                // If it's an item, try and pick it up.
                                 IItem item = hit.transform.GetComponent<IItem>();
                                 if(item != null) { // Safety check.
                                     this.pickupItem(item);
                                 }
-                            }
 
-                            /*
-                            List<IItem> items = GameObject.FindObjectsOfType<MonoBehaviour>().OfType<IItem>().ToList<IItem>();
-
-                            if(items.Count != 0) {
-                                IItem closetItem = items.OrderBy(x => Vector2.Distance(this.transform.position, x.getTransform().position)).First<IItem>();
-                                if(closetItem.canPickUpItem(this) && Vector3.Distance(this.transform.position, closetItem.getTransform().position) < Player.PICKUP_RANGE) {
-                                    // Pickup item.
-                                    this.pickupItem(closetItem);
+                                // If it implements IClickible, interact with it
+                                IClickable<Player> clickable = hit.transform.GetComponentInParent<IClickable<Player>>();
+                                if(clickable != null) {
+                                    clickable.onClick(this);
                                 }
                             }
-                            */
                         }
                     }
 
@@ -168,21 +163,8 @@ public class Player : MonoBehaviour, IPlayer {
                         }
                     }
                 }
-
-                /*
-                // Update the timeSinceMove field.
-                if(motion == Vector3.zero) {
-                    this.timeSinceMove += Time.deltaTime;
-                } else {
-                    this.timeSinceMove = 0f;
-                }
-                */
             }
         }
-    }
-
-    private void OnDestroy() {
-        
     }
 
     private void pickupItem(IItem item) {

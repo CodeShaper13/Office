@@ -7,12 +7,17 @@ public abstract class DoorBase : MonoBehaviour, IClickable<Player> {
     private bool interactedWith;
 
     /// <summary> Field that saves in the door is locked.  Locked doors can not be opened. </summary>
+    [Tooltip("Locked doors can not be opened.  They must be unlocked first.")]
     public bool isLocked;
 
     public bool isOpen;
 
-    public float strength = 4;
+    [Min(-1)]
+    [Tooltip("The doors \"health\", or how many hits until it's broken.  -1 means it can't be broken.")]
+    public float strength = -1;
+    [Tooltip("The audio source to play when the door breaks.")]
     public AudioSource audioBreakingDoor;
+
     [HideInInspector]
     public BoxCollider[] boxColliders;
 
@@ -22,6 +27,7 @@ public abstract class DoorBase : MonoBehaviour, IClickable<Player> {
         // Create the trigger collider
         this.boxColliders = this.GetComponentsInChildren<BoxCollider>();
         this.createNavTrigger();
+        
     }
 
     private void Update() {
@@ -38,9 +44,13 @@ public abstract class DoorBase : MonoBehaviour, IClickable<Player> {
     }
 
     public virtual bool onClick(Player player) {
-        this.isOpen = !this.isOpen;
-        this.interactedWith = true;
-        return true;
+        if(!this.isLocked) {
+            this.isOpen = !this.isOpen;
+            this.interactedWith = true;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public virtual void destroyDoor() {

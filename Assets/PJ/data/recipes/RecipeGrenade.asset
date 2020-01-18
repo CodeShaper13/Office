@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RecipeGrenade
   m_EditorClassIdentifier: 
   ingredients:
-  - {fileID: 11400000, guid: 8a88cc80d494377458d5fdff6e777c10, type: 2}
+  - {fileID: 11400000, guid: f460b350c123127489af8c3587c89f77, type: 2}
   output: {fileID: 11400000, guid: e92863150fa292744a1e5a8f10de2768, type: 2}

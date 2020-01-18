@@ -2,11 +2,14 @@
 
 public class DoorSingle : DoorBase {
 
+    [HideInInspector]
     [SerializeField]
     private Quaternion openState;
+    [HideInInspector]
     [SerializeField]
     private Quaternion closedState;
 
+    [Tooltip("How many degrees this door moves per seconds while opening or closing.")]
     public float openSpeed = 150f;
 
     public override bool detectIfOpen() {

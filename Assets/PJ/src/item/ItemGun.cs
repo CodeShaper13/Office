@@ -34,8 +34,7 @@ public class ItemGun : ItemBase<ItemDataGun> {
         if(!this.isReloading && this.shotsLeft < this.data.bulletCount) {
             int index;
             if(player.inventory.containsItem(this.data.ammoItems, out index)) {
-                ItemManager.destroy(player.inventory.getItem(index));
-                player.inventory.setItem(index, null);
+                ItemManager.destroyItem(player, index);
 
                 this.timer = 0f;
                 this.isReloading = true;
@@ -87,15 +86,21 @@ public class ItemGun : ItemBase<ItemDataGun> {
             if(Physics.Raycast(ray, out hit)) {
                 Debug.DrawLine(ray.origin, ray.GetPoint(100), Color.green, 1);
 
+                ZombieRagdollPart part = hit.transform.GetComponent<ZombieRagdollPart>();
+
                 // Damage the hit object.
                 Health health = hit.transform.GetComponentInParent<Health>();
                 if(health != null) {
-                    health.damage(this.data.damageAmount);
+                    float multiplyer = 1f;
+                    if(part != null) {
+                        multiplyer *= part.damageMultiplyer;
+                    }
+                    health.damage((int)(this.data.damageAmount * multiplyer));
                 }
 
-                RagdollPart part = hit.transform.GetComponent<RagdollPart>();
                 if(part != null) {
-                    part.rigidbodyComponent.AddForce(hit.normal * -1 * 700, ForceMode.Force);
+                    Vector3 force = hit.normal * -1 * Random.Range(9, 14);
+                    part.rigidbodyComponent.AddForce(force, ForceMode.Impulse);
                 }
 
                 /*

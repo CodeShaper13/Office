@@ -15,9 +15,9 @@ MonoBehaviour:
   unlocalizedName: items.tape
   prefab: {fileID: 162566, guid: 5730f8347730c9640939aca8c7406767, type: 3}
   idleAnimationId: 0
-  inventoryPositionOffset: {x: -0.07, y: -0.1, z: 0}
+  inventoryPosition: {x: 0, y: -0.18}
   inventoryRotation: {x: 0, y: 68.1, z: -36.55}
-  inventoryScale: 1
+  inventoryScale: 1.36
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
   inHandScale: 1

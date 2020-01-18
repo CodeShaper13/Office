@@ -18,7 +18,7 @@ public class HeldItemDisplayer {
         if(this.heldItemLastFrame != item) {
             // Something differend is now in hand
 
-            if(this.heldItemLastFrame != null && !this.heldItemLastFrame.isInWorld()) {
+            if(this.heldItemLastFrame != null && this.heldItemLastFrame.getTransform() != null && !this.heldItemLastFrame.isInWorld()) {
                 // Hide the old item
                 this.heldItemLastFrame.hideItem();
 
@@ -38,6 +38,8 @@ public class HeldItemDisplayer {
                 t.localRotation = Quaternion.Euler(data.inHandRotation);
             }
         }
+
+
 
         // Temp for dev
         if(this.heldItemLastFrame != null) {

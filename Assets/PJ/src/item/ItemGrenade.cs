@@ -57,7 +57,8 @@ public class ItemGrenade : ItemThrowable<ItemDataGrenade> {
         Transform t = GameObject.Instantiate(this.explosionEffectPrefab).transform;
         t.position = this.transform.position;
         t.localScale = Vector3.one * 0.5f;
-         
+        
+
         DebugDrawer.box(this.transform.position, Vector3.one * this.data.explosionRadius, Colors.orange, 10000);
 
         List<Rigidbody> rbs = new List<Rigidbody>();
@@ -75,7 +76,7 @@ public class ItemGrenade : ItemThrowable<ItemDataGrenade> {
                 health.damage(this.data.explosionDamage);
             }
             
-            // Apply force to any rigidbodies that belong to something dead.
+            // Add to the list of effected rigidbodies.
             Rigidbody rb = col.transform.GetComponent<Rigidbody>();
             if(rb != null) {
                 health = col.transform.GetComponentInParent<Health>();
@@ -85,7 +86,7 @@ public class ItemGrenade : ItemThrowable<ItemDataGrenade> {
             }
         }
 
-        // Break the joins.
+        // Break the joins of the effected rigidbodies.
         foreach(Rigidbody rb in rbs) {
             CharacterJoint join = rb.transform.GetComponent<CharacterJoint>();
             if(join != null) {
@@ -93,7 +94,7 @@ public class ItemGrenade : ItemThrowable<ItemDataGrenade> {
             }
         }
          
-        // Apply force.
+        // Apply force tot he effected rigidbodies.
         foreach(Rigidbody rb in rbs) {
             Vector3 direction = rb.transform.position - this.transform.position;
             rb.AddForce(direction * this.data.rigidbodyForce, this.data.forceMode);

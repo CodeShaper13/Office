@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[AddComponentMenu("ZPanic/Items/Item Spawn Area")]
 public class ItemSpawnArea : Area {
 
     [SerializeField]

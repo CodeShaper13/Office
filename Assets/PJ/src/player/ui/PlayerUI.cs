@@ -8,7 +8,9 @@ public class PlayerUI : MonoBehaviour, IPlayerUI {
     [SerializeField]
     private Hotbar hotbar;
     [SerializeField]
-    private Text bulletCountText;
+    private Text itemExtraText;
+    [SerializeField]
+    private SubtitleText subtitle;
     [SerializeField]
     private InventoryUI inventoryUI;
     [SerializeField]
@@ -46,19 +48,26 @@ public class PlayerUI : MonoBehaviour, IPlayerUI {
     public void openInventory() {
         this.inventoryUI.gameObject.SetActive(true);
         this.inventoryUI.open();
+
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None; // TODO confine for release.
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void closeInventory() {
         this.inventoryUI.gameObject.SetActive(false);
         this.inventoryUI.close();
-        Cursor.visible = false;
+
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
     }
 
     public void setExtraText(string text) {
-        this.bulletCountText.text = text == null ? string.Empty : text;
+        this.itemExtraText.text = text == null ? string.Empty : text;
+    }
+
+    public void setSubtitleText(string text, float timeVisible) {
+        this.subtitle.setText(text, timeVisible);
     }
 
     public void setPlayer(IPlayer owner) {

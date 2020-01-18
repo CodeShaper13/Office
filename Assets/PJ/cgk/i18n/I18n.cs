@@ -29,18 +29,22 @@ class I18n {
     /// Usage: Fields[key]
     /// Example: I18n.Fields["world"]
     /// </summary>
-    private static Dictionary<String, String> Fields;
+    private static Dictionary<String, String> fields;
 
     public static string translation(string key, params object[] args) {
-        string text = I18n.Fields[key];
-        if(text == null) {
-            return key;
-        } else {
-            if(args.Length == 0) {
-                return text;
+        if(I18n.fields.ContainsKey(key)) {
+            string text = I18n.fields[key];
+            if(text == null) {
+                return key;
             } else {
-                return String.Format(text, args);
+                if(args.Length == 0) {
+                    return text;
+                } else {
+                    return String.Format(text, args);
+                }
             }
+        } else {
+            return key;
         }
     }
 
@@ -55,11 +59,11 @@ class I18n {
     /// Load language files from ressources.
     /// </summary>
     private static void LoadLanguage() {
-        if(Fields == null) {
-            Fields = new Dictionary<string, string>();
+        if(fields == null) {
+            fields = new Dictionary<string, string>();
         }
 
-        Fields.Clear();
+        fields.Clear();
         string lang = Get2LetterISOCodeFromSystemLanguage().ToLower();
         //lang = "de";
         var textAsset = Resources.Load(@"I18n/" + lang); //no .txt needed
@@ -79,7 +83,7 @@ class I18n {
                 key = lines[i].Substring(0, lines[i].IndexOf("="));
                 value = lines[i].Substring(lines[i].IndexOf("=") + 1,
                         lines[i].Length - lines[i].IndexOf("=") - 1).Replace("\\n", Environment.NewLine);
-                Fields.Add(key, value);
+                fields.Add(key, value);
             }
         }
     }

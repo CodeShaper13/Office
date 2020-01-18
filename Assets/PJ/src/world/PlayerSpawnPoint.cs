@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[AddComponentMenu("ZPanic/Player Spawn Point")]
 public class PlayerSpawnPoint : MonoBehaviour {
 
     private void OnDrawGizmos() {

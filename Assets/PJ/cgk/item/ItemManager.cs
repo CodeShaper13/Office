@@ -34,4 +34,23 @@ public static class ItemManager {
     public static void destroy(IItemBase item) {
         GameObject.Destroy(item.getTransform().gameObject);
     }
+
+    /// <summary>
+    /// Destorys the item in the player's hand.
+    /// </summary>
+    public static void destroyHeldItem(Player player) {
+        ItemManager.destroyItem(player, player.hotbarIndex.get());
+    }
+
+    /// <summary>
+    /// Destorys the item in the player's inventory at the passed index.
+    /// </summary>
+    public static void destroyItem(Player player, int index) {
+        ItemManager.destroy(player.inventory.getItem(index));
+        player.inventory.setItem(index, null);
+
+        if(index == player.hotbarIndex.get()) {
+            player.heldItemDisplayer.heldItemLastFrame = null;
+        }
+    }
 }

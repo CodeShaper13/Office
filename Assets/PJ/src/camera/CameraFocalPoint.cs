@@ -22,7 +22,7 @@ public class CameraFocalPoint : MonoBehaviour {
     }
 
     private void Start() {
-        this.pManager = Main.singleton.getPlayerManager();
+        this.pManager = Main.singleton.playerManager;
     }
 
     private void Update() {

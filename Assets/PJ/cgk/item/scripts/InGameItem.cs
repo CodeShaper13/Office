@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
+[AddComponentMenu("ZPanic/Items/In Game Item")]
 public class InGameItem : MonoBehaviour {
 
-    [SerializeField]
-    private ItemData item;
+    public ItemData item;
     
     private void Start() {
         if(this.item != null) {

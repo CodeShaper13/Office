@@ -16,7 +16,7 @@ public class ButtonRecipe : BtnBase {
         return this.recipe.getResult();
     }
 
-    // Called after the object with this script is instantied.  This sets references.
+    // Called after the object with this script is instantiated.  This sets references.
     public void setRecipie(Recipe recipe) {
         this.recipe = recipe;
     }

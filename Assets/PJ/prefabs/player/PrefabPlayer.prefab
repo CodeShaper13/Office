@@ -1376,13 +1376,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc742e5efc20525489d318ba7653eba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 3087926926901585512}
   playerUIPrefab: {fileID: 419652225383307627, guid: 39a64ccab594e8d4b97033eb5b7a4493,
     type: 3}
   playerUI: {fileID: 0}
   rightHandTransform: {fileID: 879607836754446002}
   leftHandTransform: {fileID: 4259934223593394992}
   firstPersonCamera: {fileID: 4415123939226619472}
-  health: {fileID: 3087926926901585512}
   startingInventory: {fileID: 11400000, guid: 67c9e263fb28a3847a10cdf047d466be, type: 2}
 --- !u!114 &3087926926901585512
 MonoBehaviour:
@@ -1522,7 +1522,7 @@ MonoBehaviour:
     MaximumX: 90
     smooth: 0
     smoothTime: 5
-    lockCursor: 1
+    lockCursor: 0
   m_UseFovKick: 1
   m_FovKick:
     Camera: {fileID: 0}

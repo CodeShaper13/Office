@@ -25,7 +25,7 @@ public class TabCrafting : TabBase {
 
         // Generate all of the slots.
         const int btnsPerRow = 6;
-        const float sidePad = 10;
+        const float sidePad = 16;
 
         float x = sidePad;
         float y = -sidePad;
@@ -124,8 +124,7 @@ public class TabCrafting : TabBase {
             int i;
             inventory.containsItem(item, out i);
             if(i != -1) {
-                ItemManager.destroy(inventory.getItem(i));
-                inventory.setItem(i, null);
+                ItemManager.destroyItem(this.getPlayer(), i);
             }
         }
 

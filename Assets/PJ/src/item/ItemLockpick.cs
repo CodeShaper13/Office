@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ItemLockpick : ItemBase<ItemDataLockPick> {
 
@@ -10,6 +11,12 @@ public class ItemLockpick : ItemBase<ItemDataLockPick> {
 
         if(this.isPickingLock()) {
             this.pickTimer -= Time.deltaTime;
+
+            if(this.pickTimer <= 0) {
+                this.door.isLocked = false;
+
+                ItemManager.destroyHeldItem(player);
+            }
         }
     }
 
@@ -30,7 +37,7 @@ public class ItemLockpick : ItemBase<ItemDataLockPick> {
                 if(player.raycast(out hit, this.data.reach)) {
                     DoorBase door = hit.transform.GetComponent<DoorBase>();
                     if(door != null) {
-                        if(this.door.isLocked) {
+                        if(door.isLocked) {
                             this.pickTimer = this.data.pickTime;
                             this.door = door;
                         }
@@ -38,6 +45,10 @@ public class ItemLockpick : ItemBase<ItemDataLockPick> {
                 }
             }
         }
+    }
+
+    public override string getExtraText(Player player) {
+        return this.isPickingLock() ? "Lock: " + (float)Math.Round(this.pickTimer, 2) : base.getExtraText(player);
     }
 
     private bool isPickingLock() {

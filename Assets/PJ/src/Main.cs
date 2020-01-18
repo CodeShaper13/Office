@@ -4,8 +4,8 @@ public class Main : MonoBehaviour {
 
     public static Main singleton;
 
-    [SerializeField]
-    private PlayerManager playerManager;
+    public PlayerManager playerManager = null;
+    public UIManager uiManager = null;
 
     private void Awake() {
         if(Main.singleton == null) {
@@ -35,9 +35,5 @@ public class Main : MonoBehaviour {
 
     private void Update() {
 
-    }
-
-    public PlayerManager getPlayerManager() {
-        return this.playerManager;
     }
 }

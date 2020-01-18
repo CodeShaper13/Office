@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PlayerStartInventory
   m_EditorClassIdentifier: 
   items:
-  - {fileID: 11400000, guid: 4fbad90130bc3c848bcbc4cbd7f92a18, type: 2}
-  - {fileID: 11400000, guid: e3a9fcc7895e5eb45869cbf82ed09745, type: 2}
-  - {fileID: 11400000, guid: 0c7ef27aa09995e4993d0c765d8512d1, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: e92863150fa292744a1e5a8f10de2768, type: 2}
+  - {fileID: 11400000, guid: e92863150fa292744a1e5a8f10de2768, type: 2}
+  - {fileID: 11400000, guid: 2a534f64cddc39b47a6cf01575314927, type: 2}
+  - {fileID: 11400000, guid: e92863150fa292744a1e5a8f10de2768, type: 2}
+  - {fileID: 11400000, guid: b1653b9f243c3e949ac21c0a3a3f58ab, type: 2}
+  - {fileID: 11400000, guid: 2a534f64cddc39b47a6cf01575314927, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
