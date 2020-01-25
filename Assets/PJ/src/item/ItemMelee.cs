@@ -14,23 +14,20 @@ public class ItemMelee : ItemBase<ItemDataMelee> {
 
     public override void onLeftClick(Player player) {
         if(this.timer <= 0) {
-            //this.attackInFront();
-
             RaycastHit hit;
             if(player.raycast(out hit, this.data.range)) {
-                Health hp = hit.collider.GetComponent<Health>();
-                if(hp != null) {
-                    hp.damage(this.data.damage);
+                Health hp = hit.collider.GetComponentInParent<Health>();
+                if(hp != null && player.health != hp) {
+                    hp.damage(this.data.damage, hit);
                 }
             }
-
 
             // Even if you miss, there is still a cooldown.
             this.timer = this.data.attackRate;
         }
     }
 
-    // Only ofr third person
+    // Only for third person
     private void attackInFront() {
         int attackRange = 30; // Degrees from the line facing forward.
 

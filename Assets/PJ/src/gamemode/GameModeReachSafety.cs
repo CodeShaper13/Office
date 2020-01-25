@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System;
 
-[AddComponentMenu("ZPanic/GameMode/GM Escape")]
+[AddComponentMenu("ZPanic/GameMode/Game Mode Escape")]
 public class GameModeReachSafety : GameModeBase {
 
     [Tooltip("The name of the location the Players are going to.")]
     public string locationName = "Safe House";
     public SafeHouseTrigger safeHouseTrigger = null;
 
-    public override void initGameMode() {
-        base.initGameMode();
+    public override void initGameMode(Director director) {
+        base.initGameMode(director);
 
         if(this.safeHouseTrigger == null) {
-            throw new Exception("safeHouseTrigger must be set!");
+            throw new Exception("safeHouseTrigger field must be set!");
         }
     }
 

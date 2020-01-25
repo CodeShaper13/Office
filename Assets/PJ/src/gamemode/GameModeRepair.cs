@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[AddComponentMenu("ZPanic/GameMode/GM Repair")]
+[AddComponentMenu("ZPanic/GameMode/Game Mode Repair")]
 public class GameModeRepair : GameModeBase {
 
     private string objectiveName;

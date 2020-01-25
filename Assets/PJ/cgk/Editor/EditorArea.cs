@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(Area))]
 public class EditorArea : Editor {
@@ -40,6 +41,13 @@ public class EditorArea : Editor {
             case EnumRegionShape.LINE:
                 EditorGUILayout.PropertyField(this.length);
                 break;
+        }
+
+        if(GUILayout.Button("Fix Y")) {
+            RaycastHit hit;
+            if(Physics.Raycast(spawnArea.transform.position, Vector3.down, out hit, 10)) {
+                spawnArea.transform.position = spawnArea.transform.position.setY(hit.point.y + 0.01f);
+            }
         }
 
         this.serializedObject.ApplyModifiedProperties();

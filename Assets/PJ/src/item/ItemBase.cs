@@ -74,6 +74,8 @@ public abstract class ItemBase<T> : MonoBehaviour, IItem where T : ItemData {
 
     public virtual void onRightClick(Player player) { }
 
+    public virtual void onRightClickHold(Player player) { }
+
     public virtual void onReloadPress(Player player) { }
 
     public virtual EnumInputBlock getInputBlock(Player player) {

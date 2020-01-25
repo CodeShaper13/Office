@@ -11,22 +11,17 @@ public class Player : Character, IPlayer {
     private CharacterController cc;
     private Animator anim;
     private FpsControl fpsc;
-    public HeldItemDisplayer heldItemDisplayer;
+    [SerializeField]
+    public FirstPersonHeldItemDisplayer heldItemDisplayer;
     /// <summary> The time in seconds since the player moved. </summary>
     private float timeSinceMove;
 
     [HideInInspector]
     public PlayerUI playerUI;
     [SerializeField]
-    private Transform rightHandTransform;
-    [SerializeField]
-    private Transform leftHandTransform;
-    [SerializeField]
     private Camera firstPersonCamera;
 
     public ScrollableInt hotbarIndex;
-    public ContainerContents<IItemBase> inventory;
-
 
     // Temp
     public ContainerItems startingInventory;
@@ -39,27 +34,24 @@ public class Player : Character, IPlayer {
         this.cc = this.GetComponent<CharacterController>();
         this.anim = this.GetComponent<Animator>();
         this.hotbarIndex = new ScrollableInt(0, 3);
-        this.inventory = new ContainerContents<IItemBase>(4, 3);
-        this.heldItemDisplayer = new HeldItemDisplayer(this, this.rightHandTransform, this.leftHandTransform);
 
         this.fpsc = this.GetComponent<FpsControl>();
-
-        // Temp
-        this.startingInventory.fillContainer(this.inventory);
 
         // Let animations move the player.
         this.anim.SetBool("Static_b", false);
     }
 
-    private void Start() {
-        this.health.setHealth(100);
+    protected override void init() {
+        base.init();
+
+        // Temp
+        this.startingInventory.fillContainer(this.inventory);
+
         this.health.subscribeToDamageEvent(this.onDamageEvent);
     }
 
-    private void Update() {
-        if(Pause.isPaused()) {
-            return;
-        }
+    protected override void update() {
+        base.update();
 
         // Open the pause menu
         if(Input.GetKeyDown(KeyCode.Escape) && !this.playerUI.isInventoryOpen() && !Pause.isPaused()) {
@@ -67,10 +59,6 @@ public class Player : Character, IPlayer {
         }
 
         if(!this.health.isDead()) {
-
-            // Update the held item model in the Players hand.
-            this.heldItemDisplayer.updateHeldItem(this.getHeldItem());
-
             // Update the extra text.
             this.playerUI.setExtraText(this.getHeldItem() == null ? string.Empty : this.getHeldItem().getExtraText(this));
 
@@ -122,7 +110,7 @@ public class Player : Character, IPlayer {
                                 RaycastHit hit;
                                 if(Physics.Raycast(playerHandHeight + this.transform.forward * FORWARD_CHECK_DIST, Vector3.down, out hit, DOWN_CHECK_DIST)) {
                                     // A floor is under them.
-                                    this.dropItem(this.getHeldItem(), hit.point);
+                                    this.dropItem(this.hotbarIndex.get(), hit.point);
                                 }
                             }
                         }
@@ -161,38 +149,21 @@ public class Player : Character, IPlayer {
                         if(Input.GetMouseButtonDown(1)) {
                             this.getHeldItem().onRightClick(this);
                         }
+                        if(Input.GetMouseButton(1)) {
+                            this.getHeldItem().onRightClickHold(this);
+                        }
                     }
                 }
             }
         }
     }
 
-    private void pickupItem(IItem item) {
-//        print("Picking up item " + item.getData().getUnlocalizedName());
-
-        // It's possible the layer got set to enable collison with this world,
-        // this happens to thrown items.  Reset it here.
-        item.getTransform().gameObject.layer = Layers.ITEM;
-
-        item.setInWorld(false, Vector3.zero, Quaternion.identity); // TODO where should they be stored?
-
-        this.inventory.addItem(item);
-    }
-
-    private void dropItem(IItem item, Vector3 pos) {
-//        print("Dropping item " + item.getData().getUnlocalizedName());
-
-        item.setInWorld(true, pos, Quaternion.identity);
-
-        this.inventory.setItem(this.hotbarIndex.get(), null);
-        this.heldItemDisplayer.heldItemLastFrame = null;
-    }
-
-    /// <summary>
-    /// Returns the held item.  May be null.
-    /// </summary>
-    public IItem getHeldItem() {
+    public override IItem getHeldItem() {
         return (IItem)this.inventory.getItem(this.hotbarIndex.get());
+    }
+
+    public override Vector2Int getContainerSize() {
+        return new Vector2Int(4, 3);
     }
 
     /// <summary>
@@ -218,16 +189,9 @@ public class Player : Character, IPlayer {
     }
 
     /// <summary>
-    /// Returns the position of the players feet.
-    /// </summary>
-    public Vector3 getFootPos() {
-        return this.transform.position;
-    }
-
-    /// <summary>
     /// Damages the Player.  Returns true if they are now dead.
     /// </summary>
-    public void onDamageEvent(int amount) {
+    public void onDamageEvent(int amount, RaycastHit? hit) {
         if(this.health.isDead()) {
             this.setDead(true); // TODO bool param
         }

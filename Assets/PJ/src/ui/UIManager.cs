@@ -2,6 +2,8 @@
 
 public class UIManager : MonoBehaviour {
 
+    public UILevelSelect lvlSelectUi;
+    public UIOptions optionsUi;
     public UIPause pauseUi;
 
     /// <summary> The UI that is currenlty open.  May be null. </summary>
@@ -29,7 +31,6 @@ public class UIManager : MonoBehaviour {
         }
 
         // Restore the cursor to how it was when the ui was opened.
-        print("restoring");
         if(this.visibleWhenOpened) {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

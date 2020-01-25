@@ -18,7 +18,7 @@ public class ItemRadio : ItemBase<ItemData> {
     public override void onRightClick(Player player) {
         base.onRightClick(player);
 
-        GameModeBase gm = GameModeBase.getCurrentGameMode();
+        GameModeBase gm = Director.singleton.getCurrentGameMode();
         if(gm != null && gm is GameModeCallForHelp) {
             GameModeCallForHelp gmch = (GameModeCallForHelp)gm;
             if(gmch.getState() == GameModeCallForHelp.EnumState.FIND_RADIO) {

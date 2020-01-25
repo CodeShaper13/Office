@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System;
 
-[AddComponentMenu("ZPanic/GameMode/GM Call For Help")]
+[AddComponentMenu("ZPanic/GameMode/Game Mode Call For Help")]
 public class GameModeCallForHelp : GameModeBase {
 
     [Tooltip("The point that the vehicle spawns at.")]
     public Transform vehiclePoint;
-    [Tooltip("The time until help arrives after calling them")]
+    [Tooltip("The time until help arrives after calling them in seconds")]
     public float timeUntilHelp;
 
     private EnumState state;
@@ -14,8 +14,8 @@ public class GameModeCallForHelp : GameModeBase {
     private float timeElapsed;
     private ItemRadio radioItem;
 
-    public override void initGameMode() {
-        base.initGameMode();
+    public override void initGameMode(Director director) {
+        base.initGameMode(director);
 
         if(this.vehiclePoint == null) {
             throw new Exception("vehiclePoint can not be empty!");

@@ -1303,6 +1303,7 @@ GameObject:
   - component: {fileID: 3087926926901585512}
   - component: {fileID: 6001645145084746277}
   - component: {fileID: 8723297982961398789}
+  - component: {fileID: 6928857885968232589}
   m_Layer: 11
   m_Name: PrefabPlayer
   m_TagString: Untagged
@@ -1335,7 +1336,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6603716654354714254}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: dbbc53a6bc8f5c64bb234194ce1380aa, type: 3}
   m_Controller: {fileID: 9100000, guid: afec2cc25e3439e4bb1b43e7c09f6503, type: 2}
   m_CullingMode: 1
@@ -1376,12 +1377,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc742e5efc20525489d318ba7653eba9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloodEffectPrefab: {fileID: 0}
   health: {fileID: 3087926926901585512}
   playerUIPrefab: {fileID: 419652225383307627, guid: 39a64ccab594e8d4b97033eb5b7a4493,
     type: 3}
+  heldItemDisplayer: {fileID: 6928857885968232589}
   playerUI: {fileID: 0}
-  rightHandTransform: {fileID: 879607836754446002}
-  leftHandTransform: {fileID: 4259934223593394992}
   firstPersonCamera: {fileID: 4415123939226619472}
   startingInventory: {fileID: 11400000, guid: 67c9e263fb28a3847a10cdf047d466be, type: 2}
 --- !u!114 &3087926926901585512
@@ -1396,7 +1397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad1273176480744bbfa36553811a41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 100
   maxHealth: 100
   bonusHealthCap: 0
 --- !u!82 &6001645145084746277
@@ -1509,7 +1510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsWalking: 0
   m_WalkSpeed: 5
-  m_RunSpeed: 10
+  m_RunSpeed: 12
   m_RunstepLenghten: 0.7
   m_JumpSpeed: 10
   m_StickToGroundForce: 10
@@ -1518,8 +1519,8 @@ MonoBehaviour:
     XSensitivity: 2
     YSensitivity: 2
     clampVerticalRotation: 1
-    MinimumX: -90
-    MaximumX: 90
+    MinimumX: -70
+    MaximumX: 70
     smooth: 0
     smoothTime: 5
     lockCursor: 0
@@ -1599,6 +1600,20 @@ MonoBehaviour:
   m_FootstepSounds: []
   m_JumpSound: {fileID: 0}
   m_LandSound: {fileID: 0}
+--- !u!114 &6928857885968232589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6603716654354714254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fc85cc2e69f0945931cb8e26f5b43b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightHand: {fileID: 879607836754446002}
+  leftHand: {fileID: 4259934223593394992}
 --- !u!1 &6603716654354715416
 GameObject:
   m_ObjectHideFlags: 0
@@ -3415,7 +3430,8 @@ GameObject:
   - component: {fileID: 2957839438117310194}
   - component: {fileID: 517489647278016063}
   - component: {fileID: 1680932464857348143}
-  m_Layer: 11
+  - component: {fileID: 8596733084595136442}
+  m_Layer: 8
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -3561,7 +3577,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sharedProfile: {fileID: 11400000, guid: ccd90e318e9c6364292d66629cd6e18d, type: 2}
-  isGlobal: 0
+  isGlobal: 1
   blendDistance: 0
   weight: 1
   priority: 0
+--- !u!114 &8596733084595136442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8276992083334388623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090e682b7aa24f44ab03d069a3abf1f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 3087926926901585512}
+  nearDeathColor: {r: 1, g: 0, b: 0, a: 1}

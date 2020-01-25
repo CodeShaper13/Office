@@ -18,7 +18,13 @@ public interface IItemBase {
     /// </summary>
     void setInWorld(bool inWorld, Vector3 position, Quaternion rotation);
 
+    /// <summary>
+    /// Hides the item by disabling all mesh renderers.
+    /// </summary>
     void hideItem();
 
+    /// <summary>
+    /// Reveals the item by enabling all mesh renderers.
+    /// </summary>
     void showItem();
 }

@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: ItemCannedFood
   m_EditorClassIdentifier: 
   unlocalizedName: items.cannedFood
-  prefab: {fileID: 0}
+  prefab: {fileID: 8673670191457612373, guid: 8c99e91d8d781974da3c69b54a5e0ab8, type: 3}
   idleAnimationId: 0
-  inventoryPositionOffset: {x: 0, y: 0, z: 0}
+  inventoryPosition: {x: 0, y: 0}
   inventoryRotation: {x: 22.5, y: 45, z: 0}
   inventoryScale: 1
   inHandPosition: {x: 0, y: 0, z: 0}
   inHandRotation: {x: 0, y: 0, z: 0}
   inHandScale: 1
   healthRestored: 10
+  leftoverItem: {fileID: 11400000, guid: 37ef57d0edbf33246a0f5d8dd3fe8075, type: 2}

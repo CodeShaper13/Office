@@ -99,8 +99,8 @@ public class TaskAttack : TaskBase {
     /// </summary>
     private Transform findTarget() {
         List<Character> chars = new List<Character>(GameObject.FindObjectsOfType<Character>());
-        chars.RemoveAll(x => x is ZombieBase || x.health.isDead());
-        chars.OrderBy(x => Vector2.Distance(this.zombie.transform.position, x.transform.position));
+        chars.RemoveAll(character => character is ZombieBase || character.health.isDead());
+        chars = chars.OrderBy(x => Vector3.Distance(x.transform.position, this.zombie.transform.position)).ToList();
 
         if(chars.Count > 0) {
             return chars[0].transform;

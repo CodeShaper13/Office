@@ -2,19 +2,19 @@
 using System;
 using System.Collections.Generic;
 
-[AddComponentMenu("ZPanic/GameMode/GM Survivor Rescue")]
+[AddComponentMenu("ZPanic/GameMode/Game Mode Survivor Rescue")]
 public class GameModeSurvivorRescue : GameModeBase {
 
     [SerializeField]
-    [Tooltip("The locations that the surivvor will spawn at.")]
+    [Tooltip("The locations that the survivors will spawn at.")]
     private Transform[] survivorSpawnPoints = null;
     [SerializeField]
     private GameObject survivorPrefab = null;
 
     private List<Survivor> survivors;
 
-    public override void initGameMode() {
-        base.initGameMode();
+    public override void initGameMode(Director director) {
+        base.initGameMode(director);
 
         if(this.survivorPrefab == null) {
             throw new Exception("survivorPrefab can not be null!");
@@ -22,12 +22,15 @@ public class GameModeSurvivorRescue : GameModeBase {
 
         this.survivors = new List<Survivor>();
 
+        int skinIndex = 0;
         foreach(Transform t in this.survivorSpawnPoints) {
             if(t != null) {
                 GameObject obj = GameObject.Instantiate(this.survivorPrefab, t.position, Quaternion.Euler(0, UnityEngine.Random.Range(0, 359), 0));
                 Survivor survivor = obj.GetComponent<Survivor>();
 
-                // TODO pick skin.
+                // Pick skin.
+                survivor.GetComponent<RandomSkin>().pickSpecificSkin(skinIndex);
+                skinIndex++;
             }
         }
     }

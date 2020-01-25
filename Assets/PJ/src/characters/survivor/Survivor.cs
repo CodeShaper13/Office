@@ -7,9 +7,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Animator))]
 public class Survivor : CharacterNonPlayable, IClickable<Player> {
 
-    // Set by the GameModeSurvivorRescue object.
-    [NonSerialized]
-    public int skinIndex;
     /// <summary> The Player the egent is following. </summary>
     private Player playertoFollow;
     /// <summary> The time in seconds the survivor has been wiating for the player. </summary>

@@ -15,7 +15,7 @@ public class Health : MonoBehaviour {
     [Tooltip("If bonusHealthCap is less that maxHealth, it is set to maxHelath.")]
     private int bonusHealthCap;
 
-    private List<Action<int>> damageEventCallbacks;
+    private List<Action<int, RaycastHit?>> damageEventCallbacks;
     private List<Action<int>> healEventCallbacks;
 
     private void Awake() {
@@ -29,11 +29,11 @@ public class Health : MonoBehaviour {
         }
 
 
-        this.damageEventCallbacks = new List<Action<int>>();
+        this.damageEventCallbacks = new List<Action<int, RaycastHit?>>();
         this.healEventCallbacks = new List<Action<int>>();
     }
 
-    public void subscribeToDamageEvent(Action<int> func) {
+    public void subscribeToDamageEvent(Action<int, RaycastHit?> func) {
         this.damageEventCallbacks.Add(func);
     }
 
@@ -73,12 +73,12 @@ public class Health : MonoBehaviour {
     /// <summary>
     /// Damages the health object.  Returns true if it is now "dead" (health = 0).
     /// </summary>
-    public bool damage(int amount) {
+    public bool damage(int amount, RaycastHit? hit = null) {
         int i = this.func(this.health - amount);
         this.health = i;
 
-        foreach(Action<int> callback in this.damageEventCallbacks) {
-            callback(amount);
+        foreach(Action<int, RaycastHit?> callback in this.damageEventCallbacks) {
+            callback(amount, hit);
         }
 
         return this.isDead();

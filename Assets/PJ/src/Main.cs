@@ -9,7 +9,7 @@ public class Main : MonoBehaviour {
 
     private void Awake() {
         if(Main.singleton == null) {
-            //GameObject.DontDestroyOnLoad(this.gameObject);
+            GameObject.DontDestroyOnLoad(this.gameObject);
             Main.singleton = this;
         }
         else {

@@ -22,6 +22,8 @@ public interface IItem : IItemBase {
 
     void onRightClick(Player player);
 
+    void onRightClickHold(Player player);
+
     void onReloadPress(Player player);
 
     EnumInputBlock getInputBlock(Player player);

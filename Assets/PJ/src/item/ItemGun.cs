@@ -2,9 +2,20 @@
 
 public class ItemGun : ItemBase<ItemDataGun> {
 
+    [SerializeField]
+    private Light muzzleFlashLight;
+    [SerializeField]
+    private AudioSource gunSoundSource;
+
     private bool isReloading;
     private float timer;
     private int shotsLeft;
+
+    public override void initializeItem() {
+        base.initializeItem();
+
+        this.hideFlash();
+    }
 
     public override void updateItemInHand(Player player) {
         base.updateItemInHand(player);
@@ -23,6 +34,20 @@ public class ItemGun : ItemBase<ItemDataGun> {
     public override void onRightClick(Player player) {
         base.onRightClick(player);
 
+        if(!this.data.rapidFire) {
+            this.func(player);
+        }
+    }
+
+    public override void onRightClickHold(Player player) {
+        base.onRightClickHold(player);
+
+        if(this.data.rapidFire) {
+            this.func(player);
+        }
+    }
+
+    private void func(Player player) {
         if(this.shotsLeft > 0 && this.timer >= this.data.shootDelay) {
             this.shootGun(player);
         }
@@ -57,18 +82,18 @@ public class ItemGun : ItemBase<ItemDataGun> {
     }
 
     private void shootGun(Player player) {
-        //if(this.gunSoundSource != null) {
-        //    this.gunSoundSource.Play();
-        //}
+        if(this.gunSoundSource != null) {
+            this.gunSoundSource.Play();
+        }
 
         //this.muzzleFlash.Play();
 
-        //if(this.muzzleFlashLight != null) {
-        //    this.muzzleFlashLight.enabled = true;
-        //    this.Invoke("hideFlash", 0.1f);
-        //}
+        if(this.muzzleFlashLight != null) {
+            this.muzzleFlashLight.enabled = true;
+            this.Invoke("hideFlash", 0.1f);
+        }
 
-        this.shotsLeft--;
+        //this.shotsLeft--;
 
         this.timer = 0f;
 
@@ -95,7 +120,7 @@ public class ItemGun : ItemBase<ItemDataGun> {
                     if(part != null) {
                         multiplyer *= part.damageMultiplyer;
                     }
-                    health.damage((int)(this.data.damageAmount * multiplyer));
+                    health.damage((int)(this.data.damageAmount * multiplyer), hit);
                 }
 
                 if(part != null) {
@@ -122,7 +147,9 @@ public class ItemGun : ItemBase<ItemDataGun> {
     }
 
     private void hideFlash() {
-        //this.muzzleFlashLight.enabled = false;
+        if(this.muzzleFlashLight != null) {
+            this.muzzleFlashLight.enabled = false;
+        }
     }
 
     /// <summary>

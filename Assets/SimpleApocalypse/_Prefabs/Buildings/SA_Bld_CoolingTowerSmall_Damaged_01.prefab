@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 418514}
   - component: {fileID: 3342372}
   - component: {fileID: 2382922}
+  - component: {fileID: 2531694980557059203}
   m_Layer: 0
   m_Name: SA_Bld_CoolingTowerSmall_Damaged_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &418514
 Transform:
@@ -78,3 +79,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &2531694980557059203
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136362}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.310176
+  m_Height: 32.012466
+  m_Direction: 1
+  m_Center: {x: 0.000010967255, y: 13.151894, z: -0.00000047683716}

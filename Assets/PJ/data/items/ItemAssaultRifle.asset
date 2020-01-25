@@ -24,7 +24,8 @@ MonoBehaviour:
   reloadTime: 2
   bulletCount: 30
   damageAmount: 40
-  shootDelay: 0.5
+  shootDelay: 0.15
   bulletsPerShot: 1
   bulletSpread: 0
   ammoItems: {fileID: 11400000, guid: ff50d05f28da83f4a804b61e376bc406, type: 2}
+  rapidFire: 1

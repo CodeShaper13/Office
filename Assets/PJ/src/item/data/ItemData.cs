@@ -12,6 +12,7 @@ public class ItemData : ScriptableObject {
     private GameObject prefab;
 
     [Space]
+
     [SerializeField]
     [Tooltip("")]
     private EnumWeaponAnimationType idleAnimationId = EnumWeaponAnimationType.NO_WEAPON;
@@ -29,6 +30,10 @@ public class ItemData : ScriptableObject {
     public Vector3 inHandRotation = Vector3.zero;
     public float inHandScale = 1f;
 
+    [Space]
+    //public bool hasDurability = false;
+    //public int maxDurability = 0;
+
     private Mesh mesh;
     private int materialNumber = -1;
 
@@ -43,6 +48,9 @@ public class ItemData : ScriptableObject {
     }
 
     public GameObject getPrefab() {
+        if(this.prefab == null) {
+            throw new Exception("Item \"" + this.unlocalizedName + "\" has no prefab set!");
+        }
         return this.prefab;
     }
 
@@ -52,14 +60,20 @@ public class ItemData : ScriptableObject {
     
     public Mesh getMesh() {
         if(this.mesh == null) {
-            this.mesh = this.prefab.GetComponent<MeshFilter>().sharedMesh;
+            this.mesh = this.prefab.GetComponentInChildren<MeshFilter>().sharedMesh; // Hacky way to get mesh for meta items
         }
         return this.mesh;
     }
 
     public int getMaterialNumber() {
         if(this.materialNumber == -1) {
-            this.materialNumber = this.prefab.GetComponent<MeshRenderer>().sharedMaterial == References.list.itemMaterialLit_0 ? 0 : 1;
+            MeshRenderer mr = this.getPrefab().GetComponent<MeshRenderer>();
+            if(mr == null) {
+                // Meta item?
+                mr = this.getPrefab().GetComponentInChildren<MeshRenderer>();
+            }
+
+            this.materialNumber = mr.sharedMaterial == References.list.itemMaterialLit_0 ? 0 : 1;
         }
         return this.materialNumber;
     }

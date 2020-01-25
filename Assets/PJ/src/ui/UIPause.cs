@@ -11,7 +11,7 @@ public class UIPause : UIBase {
         base.onShow();
 
         // Set the objective text.
-        GameModeBase gameMode = GameModeBase.getCurrentGameMode();
+        GameModeBase gameMode = Director.singleton.getCurrentGameMode();
         if(gameMode == null) {
             this.objectiveText.text = "No Game Mode";
         } else {

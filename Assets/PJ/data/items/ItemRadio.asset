@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ItemRadio
   m_EditorClassIdentifier: 
   unlocalizedName: items.radio
-  prefab: {fileID: 0}
+  prefab: {fileID: 149176, guid: d37bdca3cf4a37248934e1cdf44b591f, type: 3}
   idleAnimationId: 0
   inventoryPosition: {x: 0, y: 0}
   inventoryRotation: {x: 0, y: 0, z: 0}

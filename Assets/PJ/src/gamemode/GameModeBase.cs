@@ -3,25 +3,6 @@
 [DisallowMultipleComponent]
 public abstract class GameModeBase : MonoBehaviour {
 
-
-    private void Start() {
-        this.initGameMode();
-    }
-
-    private void Update() {
-        if(!Pause.isPaused()) {
-            this.updateGameMode();
-        }
-    }
-
-    /// <summary>
-    /// Returns a reference to the current game mode.
-    /// </summary>
-    public static GameModeBase getCurrentGameMode() {
-        GameModeBase gameMode = GameObject.FindObjectOfType<GameModeBase>();
-        return gameMode;
-    }
-
     /// <summary>
     /// Call to trigger a win of the map.
     /// </summary>
@@ -36,7 +17,7 @@ public abstract class GameModeBase : MonoBehaviour {
         this.onLose();
     }
 
-    public virtual void initGameMode() { }
+    public virtual void initGameMode(Director director) { }
 
     public virtual void updateGameMode() { }
 

@@ -8,8 +8,6 @@ public class TabCrafting : TabBase {
     private GameObject slotPrefab;
 
     [SerializeField]
-    private Recipe[] allRecipies;
-    [SerializeField]
     private RectTransform recipeRect;
     [SerializeField]
     private Button craftButton;
@@ -19,8 +17,13 @@ public class TabCrafting : TabBase {
     private List<ButtonRecipe> recipeButtons;
     /// <summary> The currenlty selected recipe.  May be null. </summary>
     private ButtonRecipe selectedRecipe;
+    /// <summary> An array of all of the recipies. </summary>
+    private Recipe[] allRecipies;
 
     private void Awake() {
+        // Load the recipies from the resources folder.
+        this.allRecipies = Resources.LoadAll<Recipe>("recipes");
+
         this.recipeButtons = new List<ButtonRecipe>();
 
         // Generate all of the slots.
@@ -49,9 +52,9 @@ public class TabCrafting : TabBase {
 
                 x += btnSize + sidePad;
 
-                if(x > 300) {
+                if(x > 500) {
                     x = sidePad;
-                    y += btnSize + sidePad;
+                    y -= btnSize + sidePad;
                 }
             }
         }

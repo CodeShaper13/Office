@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(BoxCollider))]
 [DisallowMultipleComponent]
 [AddComponentMenu("ZPanic/GameMode/Safe House Trigger")]
 public class SafeHouseTrigger : MonoBehaviour {

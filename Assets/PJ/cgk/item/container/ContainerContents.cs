@@ -51,6 +51,9 @@ public class ContainerContents<T> where T : IItemBase {
         this.items[index] = item;
     }
 
+    /// <summary>
+    /// Returns a raw array of the containers contents.
+    /// </summary>
     public T[] getRawItemArray() {
         return this.items;
     }
@@ -110,25 +113,25 @@ public class ContainerContents<T> where T : IItemBase {
         return false;
     }
 
-    /*
-    public virtual NbtCompound writeToNbt(NbtCompound tag) {
-        NbtList list = new NbtList("items", NbtTagType.Compound);
+        /*
+        public virtual NbtCompound writeToNbt(NbtCompound tag) {
+            NbtList list = new NbtList("items", NbtTagType.Compound);
 
-        for(int i = 0; i < this.items.Length; i++) {
-            if(this.items[i] != null) {
-                NbtCompound tagStack = this.items[i].writeToNbt();
-                tagStack.Add(new NbtInt("slotIndex", i));
-                list.Add(tagStack);
+            for(int i = 0; i < this.items.Length; i++) {
+                if(this.items[i] != null) {
+                    NbtCompound tagStack = this.items[i].writeToNbt();
+                    tagStack.Add(new NbtInt("slotIndex", i));
+                    list.Add(tagStack);
+                }
+            }
+            tag.Add(list);
+            return tag;
+        }
+
+        public virtual void readFromNbt(NbtCompound tag) {
+            foreach(NbtCompound compound in tag.Get<NbtList>("items")) {
+                this.items[compound.Get<NbtInt>("slotIndex").IntValue] = new ItemStack(compound);
             }
         }
-        tag.Add(list);
-        return tag;
-    }
-
-    public virtual void readFromNbt(NbtCompound tag) {
-        foreach(NbtCompound compound in tag.Get<NbtList>("items")) {
-            this.items[compound.Get<NbtInt>("slotIndex").IntValue] = new ItemStack(compound);
-        }
-    }
-    */
+        */
 }

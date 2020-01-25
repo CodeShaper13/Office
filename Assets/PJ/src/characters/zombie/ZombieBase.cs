@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 
 public class ZombieBase : CharacterNonPlayable {
-    
+
+    [Space]
+
+    [SerializeField]
+    [Tooltip("How many seconds the dead zombie model is visible until it's destroyed.")]
+    private float timeUntilModelHide = 30f;
+
     public ZombieStats stats;
     protected TaskBase task;
+
+    /// <summary> Seconds the zombie has been dead. </summary>
+    private float timeDead;
 
     protected override void init() {
         base.init();
@@ -39,10 +47,15 @@ public class ZombieBase : CharacterNonPlayable {
             else if(this.task is TaskAttack) {
                 i = ((TaskAttack)this.task).isAttackingTarget() ? 2 : 0;
             }
+        } else {
+            this.timeDead += Time.deltaTime;
+            if(this.timeDead > this.timeUntilModelHide) {
+                GameObject.Destroy(this.gameObject);
+            }
         }
     }
 
-    private void onDamageCallback(int amount) {
+    private void onDamageCallback(int amoun, RaycastHit? hit) {
         this.task.onDamage();
     }
 

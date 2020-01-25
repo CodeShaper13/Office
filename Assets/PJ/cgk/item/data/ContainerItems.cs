@@ -6,7 +6,7 @@ public class ContainerItems : ScriptableObject {
     [SerializeField]
     private ItemData[] items;
 
-    public void fillContainer<T>(ContainerContents<T> container) where T : IItemBase {
+    public void fillContainer(ContainerContents<IItemBase> container) {
         foreach(ItemData itemData in this.items) {
             if(container.isFull()) {
                 break;
@@ -16,9 +16,7 @@ public class ContainerItems : ScriptableObject {
                 continue;
             }
 
-            T item = ItemManager.create<T>(itemData);
-            item.setInWorld(false, Vector3.zero, Quaternion.identity); // TODO where should they be stored?
-            container.addItem(item);
+            ItemManager.create<IItemBase>(itemData, container);
         }
     }
 }

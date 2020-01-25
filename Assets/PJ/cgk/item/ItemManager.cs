@@ -28,6 +28,14 @@ public static class ItemManager {
         return iItem;
     }
 
+    public static T create<T>(ItemData itemData, ContainerContents<IItemBase> container) where T : IItemBase {
+        T item = ItemManager.create<T>(itemData);
+        item.setInWorld(false, Vector3.zero, Quaternion.identity); // TODO where should they be stored?
+        container.addItem(item);
+
+        return item;
+    }
+
     /// <summary>
     /// Destroys the passed Item.
     /// </summary>
